@@ -2,7 +2,7 @@
 
 
 
-$connection = mysqli_connect('localhost', 'root', '12345678', 'faraondb');
+$connection = mysqli_connect('localhost', 'root', '12345678', 'tiendajiip');
 
 
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FaraonDb | Login <?php echo date("Y"); ?></title>
+  <title>Almacen JIIP | Login <?php echo date("Y"); ?></title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -21,7 +21,7 @@
   <div class="login-box">
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <h1 class="h1"><b>FARAON Login</b></h1>
+        <h1 class="h1"><b>ALMACEN Jiip</b></h1>
       </div>
       <! -- / . card-header - ->
         <div class="card-body">

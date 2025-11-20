@@ -5,5 +5,5 @@
     Tmav-Ytvm
   </div>
   <!-- Default to the left -->
-  <strong>Copyright &copy; 2025 <a href="https://adminlte.io">Soft-Rarm</a>.</strong> All rights reserved.
+  <strong>Copyright &copy; 2025 <a href="#">Soft-Rarm</a>.</strong> All rights reserved.
 </footer>

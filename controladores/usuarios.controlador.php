@@ -21,7 +21,7 @@ class UsuarioControlador
         echo '
             <script>
 
-              window.location = "http://localhost/faraonbd/"
+              window.location = "http://localhost/tiendajipp/"
               
             </script>
         ';
@@ -32,7 +32,7 @@ class UsuarioControlador
               fncSweetAlert{
                 "error",
                 "Usuario y/o contraseña invalida",
-                "http://localhost/faraondb/"
+                "http://localhost/tiendajipp/"
               };  
             
 

@@ -8,7 +8,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
-          <li class="breadcrumb-item active">Inventario / Productos</li>
+          <li class="breadcrumb-item active">Productos Existentes</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -87,7 +87,7 @@
           <thead class="bg-main">
             <tr style="font-size: 15px;">
               <th> </th> <!-- 0 -->
-              <th class="text-cetner">Opciones</th> <!-- *1 -->
+              <th class="text-center">Opciones</th> <!-- *1 -->
               <th>id</th> <!-- 2 -->
               <th>Codigo</th> <!-- *3 -->
               <th>Descripcion</th><!-- *4 -->
@@ -149,7 +149,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
           <div class="row">
 
             <!-- CODIGO DE BARRAS -->
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-4">
 
               <div class="form-floating mb-2">
 
@@ -166,7 +166,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
             </div>
 
             <!-- CATEGORIAS -->
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-4">
 
               <div class="form-floating mb-2">
 
@@ -185,7 +185,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
 
             <!-- SUB-CATEGORIAS -->
-            <div class="col-12 col-lg-6">
+            <!-- <div class="col-12 col-lg-6">
 
               <div class="form-floating mb-2">
 
@@ -199,10 +199,10 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               </div>
 
-            </div>
+            </div> -->
 
             <!-- DOCUMENTO COMPRA-->
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-4">
 
               <div class="form-floating mb-2">
 
@@ -245,6 +245,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
               </div>
 
             </div>
+
             <!-- PORCENTAJE DE CALCULO -->
             <div class="col-12 col-lg-3">
 
@@ -275,7 +276,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
             </div>
             <!-- PRECIO DE FERIA -->
-            <div class="col-12 col-lg-3">
+            <!-- <div class="col-12 col-lg-3">
 
               <div class="form-floating mb-2">
 
@@ -288,9 +289,10 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               </div>
 
-            </div>
+            </div> -->
+
             <!-- PRECIO DE OFERTA -->
-            <div class="col-12 col-lg-3">
+            <!-- <div class="col-12 col-lg-3">
 
               <div class="form-floating mb-2">
 
@@ -303,10 +305,10 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               </div>
 
-            </div>
+            </div> -->
 
             <!-- DESCUENTO -->
-            <div class="col-12 col-lg-3">
+            <!-- <div class="col-12 col-lg-3">
 
               <div class="form-floating mb-2">
 
@@ -320,7 +322,8 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               </div>
 
-            </div>
+            </div> -->
+
             <!-- STOCK -->
             <div class="col-12 col-lg-3">
 
@@ -336,6 +339,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
               </div>
 
             </div>
+
             <!-- UNIDAD MEDIDA -->
             <div class="col-12 col-lg-3">
 
@@ -351,8 +355,9 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
               </div>
 
             </div>
+
             <!-- PROVEEDOR -->
-            <div class="col-12 col-lg-3">
+            <div class="col-12 col-lg-6">
 
               <div class="form-floating mb-2">
 
@@ -372,17 +377,17 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
               <!-- <a type="button" class="btn btn-outline-danger mt-1 mx-1" style="width:170px;" data-bs-dismiss="modal" id="btnCancelarRegistro">Cancelar</a>
                             <a style="width:170px;" class="btn btn-outline-success mt-1 mx-1" id="btnGuardarProducto">Guardar Producto</a> -->
 
-              <a class="btn btn-danger  fw-bold " id="btnCancelarRegistro" style="position: relative; width: 160px;">
+              <a class="btn btn-danger  fw-bold " id="btnCancelarRegistro" style="position: relative; width: 180px;">
                 <span class="text-button">CANCELAR</span>
                 <span class="btn fw-bold icon-btn-danger ">
-                  <i class="fas fa-times fs-5 text-white m-0 p-0"></i>
+                  <i class="fas fa-times fs-2 text-white m-0 p-0"></i>
                 </span>
               </a>
 
-              <a class="btn btn-success  fw-bold " id="btnGuardarProducto" style="position: relative; width: 160px;">
+              <a class="btn btn-success  fw-bold " id="btnGuardarProducto" style="position: relative; width: 180px;">
                 <span class="text-button">GUARDAR</span>
                 <span class="btn fw-bold icon-btn-success ">
-                  <i class="fas fa-save fs-5 text-white m-0 p-0"></i>
+                  <i class="fas fa-save fs-2 text-white m-0 p-0"></i>
                 </span>
               </a>
             </div>
@@ -737,7 +742,7 @@ function fnc_CargarDataTableInventario() {
         className: 'btn btn-success',
         action: function(e, dt, node, config) {
           $("#codigo_producto").prop('readonly', false);
-          $(".titulo-modal-productos").html("Registrar Producto")
+          $(".titulo-modal-productos").html("Registrar Producto Nuevo")
           $("#mdlGestionarProducto").modal('show');
 
           accion = 'registrar_producto'; //registrar
@@ -780,7 +785,7 @@ function fnc_CargarDataTableInventario() {
         className: 'control'
       },
       {
-        targets: [2, 12, 13, 14, 15, 16, 17, 18],
+        targets: [2, 6, 10, 12, 13, 14, 15, 16, 17, 18],
         visible: false
       },
       {
@@ -887,38 +892,18 @@ function fnc_ModalActualizarProducto(fila_actualizar) {
 
   $("#codigo_producto").val(data[3]);
   $("#id_categoria").val(data[14]).change();
-  $("#id_subcategoria").val(data[15]).change();
+  //$("#id_subcategoria").val(data[15]).change();
   $("#doc_producto").val(data[17]);
   $("#descripcion").val(data[4]);
   $("#precio_compra").val(data[8]);
   $("#precio_venta").val(data[9]);
-  $("#precio_feria").val(data[12]);
-  $("#precio_oferta").val(data[13]);
-  $("#descuento_producto").val(data[10]);
+  // $("#precio_feria").val(data[12]);
+  // $("#precio_oferta").val(data[13]);
+  //$("#descuento_producto").val(data[10]);
   $("#stock_producto").val(data[7]);
   $("#id_unidad_medida").val(data[16]);
   $("#id_proveedor").val(data[18]).change();
   
-  var formData = new FormData();
-  formData.append('accion', accion)
-  //formData.append('detalle_producto', $("#frm-datos-producto").serialize());
-
-  response = SolicitudAjax('ajax/productos.ajax.php', 'POST', formData);
-
-  // if (response) {
-  //   $("#impuesto").val(response['impuesto'] + ' %')
-  //   $("#impuesto_producto").val(response['impuesto']);
-  // }
-  // $("#id_unidad_medida").val(data['id_unidad_medida']).change();
-  // $("#previewImg").attr("src", 'vistas/assets/imagenes/productos/' + (data['imagen'] ? data['imagen'] :
-  // 'no_image.jpg'));
-  // $("#precio_unitario_con_igv").val(data['precio_unitario_con_igv']);
-  // $("#precio_unitario_sin_igv").val(data['precio_unitario_sin_igv']);
-  // $("#precio_unitario_mayor_con_igv").val(data['precio_unitario_mayor_con_igv']);
-  // $("#precio_unitario_mayor_sin_igv").val(data['precio_unitario_mayor_sin_igv']);
-  // $("#precio_unitario_oferta_con_igv").val(data['precio_unitario_oferta_con_igv']);
-  // $("#precio_unitario_oferta_sin_igv").val(data['precio_unitario_oferta_sin_igv']);
-  // $("#minimo_stock").val(data['minimo_stock']);
 }
 
 function fnc_registrarProducto() {

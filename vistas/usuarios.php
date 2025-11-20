@@ -79,7 +79,7 @@
 
                   <label class="col-form-label" for="iptNombreUsuario">
                     <i class="fas fa-user f-6"></i>
-                    <span class="small">Nombre Usuario</span><span class="text-danger">*</span>
+                    <span class="small">Nombre | Apellido</span><span class="text-danger">*</span>
                   </label>
 
                   <input type="text" class="form-control form-control-sm" id="iptNombreUsuario" name="iptNombreUsuario"

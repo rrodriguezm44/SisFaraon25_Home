@@ -11,14 +11,14 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
   <a href="index3.html" class="brand-link">
     <img src="vistas/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
       style="opacity: .8">
-    <span class="brand-text font-weight-light">FaraonBd</span>
+    <span class="brand-text font-weight-light">Almacenes JIIP</span>
   </a>
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
+      <!-- <div class="image">
         <img src="vistas/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-      </div>
+      </div> -->
       <div class="info">
         <h6 class="text-warning">
           <?php echo $_SESSION["usuario"]->nombre_usuario . ' ' . $_SESSION["usuario"]->apellido_usuario ?></h6>
@@ -28,7 +28,7 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
         data-accordion="false">
-        <?php foreach ($menuUsuario as $menu) : ?>
+        <?php if (!empty($menuUsuario) && is_iterable($menuUsuario)) : foreach ($menuUsuario as $menu) : ?>
         <?php
           $isOpen = $menu->abrir_arbol == 1 ? 'menu-is-opening menu-open' : '';
           $isActive = $menu->vista_inicio == 1 ? 'active' : '';
@@ -65,9 +65,9 @@ $menuUsuario = UsuarioModelo::mdlObtenerMenuUsuario($_SESSION["usuario"]->id_usu
             </ul>
           <?php endif; ?>
         </li>
-        <?php endforeach; ?>
+        <?php endforeach; endif; ?>
         <li class="nav-item">
-          <a href="http://localhost/faraonbd?cerrar_sesion=1" class="nav-link">
+          <a href="http://localhost/tiendajipp?cerrar_sesion=1" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Cerrar Sesion</p>
           </a>

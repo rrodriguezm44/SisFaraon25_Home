@@ -9,7 +9,7 @@ if (count(array_filter($routesArray)) > 1) {
   echo '
     <script>
 
-      window.location = "http://localhost/faraonbd/"
+      window.location = "http://localhost/tiendajipp/"
     </script>
   ';
   # code...
@@ -22,7 +22,7 @@ if (isset($_GET["cerrar_sesion"]) && $_GET["cerrar_sesion"] == 1) {
   echo '
     <script>
 
-      window.location = "http://localhost/faraonbd/"
+      window.location = "http://localhost/tiendajipp/"
     </script>
   ';
 }
@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FaraonDb | Distribuidor</title>
+  <title>Almacen JIIP | Ventas</title>
 
   <link rel="shortcut icon" href="vistas/assets/dist/img/AdminLTELogo.png" type="image/x-icon">
 

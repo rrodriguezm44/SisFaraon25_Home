@@ -347,7 +347,7 @@
 
         $(this).parents('tr').addClass('selected')
 
-        $("#divDatosClientes").show();
+        $("#divDatosClientes").show(); 
 
         idCliente = data[0];
         $("#iptRazonSocial").val(data[1]);

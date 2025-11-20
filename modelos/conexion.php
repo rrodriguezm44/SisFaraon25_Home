@@ -7,7 +7,7 @@ class Conexion
   {
 
     try {
-      $conn = new PDO("mysql:host=localhost;dbname=faraondb", "root", "12345678", array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+      $conn = new PDO("mysql:host=localhost;dbname=tiendajiip", "root", "12345678", array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
       return $conn;
     } catch (PDOException $e) {
       echo "Fallo la conexion: " . $e->getMessage();

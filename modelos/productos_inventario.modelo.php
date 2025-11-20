@@ -315,7 +315,6 @@ class ProductosModelo
 
             $stmt = $dbh->prepare("INSERT INTO PRODUCTOS(codigo_producto, 
                                                         categoria_id,
-                                                        subcategoria_id,
                                                         nombre, 
                                                         unidad_medida,
                                                         stock,
@@ -326,23 +325,22 @@ class ProductosModelo
                                                         proveedor_id,
                                                         precio_feria,
                                                         precio_oferta) 
-                                                VALUES (?,?,?,upper(?),upper(?),?,?,?,upper(?),?,?,?,?)");
+                                                VALUES (?,?,upper(?),upper(?),?,?,?,upper(?),?,?,?,?)");
 
             $dbh->beginTransaction();
             $stmt->execute(array(
-                $array_datos_producto["codigo_producto"],
-                $array_datos_producto["id_categoria"],
-                $array_datos_producto["id_subcategoria"],
-                $array_datos_producto["descripcion"],
-                $array_datos_producto["id_unidad_medida"],
-                $array_datos_producto["stock_producto"],
-                $array_datos_producto["precio_venta"],
-                $array_datos_producto["precio_compra"],
-                $array_datos_producto["doc_producto"],
-                $array_datos_producto["descuento_producto"],
-                $array_datos_producto["id_proveedor"],
-                $array_datos_producto["precio_feria"],
-                $array_datos_producto["precio_oferta"]
+                $array_datos_producto["codigo_producto"] ?? null,
+                $array_datos_producto["id_categoria"] ?? null,
+                $array_datos_producto["descripcion"] ?? null,
+                $array_datos_producto["id_unidad_medida"] ?? null,
+                $array_datos_producto["stock_producto"] ?? 0,
+                $array_datos_producto["precio_venta"] ?? 0,
+                $array_datos_producto["precio_compra"] ?? 0,
+                $array_datos_producto["doc_producto"] ?? null,
+                $array_datos_producto["descuento_producto"] ?? 0,
+                $array_datos_producto["id_proveedor"] ?? null,
+                $array_datos_producto["precio_feria"] ?? 0,
+                $array_datos_producto["precio_oferta"] ?? 0
             ));
             $dbh->commit();
 
@@ -390,7 +388,6 @@ class ProductosModelo
                                         productos
                                     SET 
                                         categoria_id = ?,
-                                        subcategoria_id = ?,
                                         nombre = upper(?), 
                                         unidad_medida = upper(?),
                                         stock = ?,
@@ -407,18 +404,17 @@ class ProductosModelo
             $dbh->beginTransaction();
             $stmt->execute(array(
 
-                $array_datos_producto["id_categoria"],
-                $array_datos_producto["id_subcategoria"],
-                $array_datos_producto["descripcion"],
-                $array_datos_producto["id_unidad_medida"],
-                $array_datos_producto["stock_producto"],
-                $array_datos_producto["precio_venta"],
-                $array_datos_producto["precio_compra"],
-                $array_datos_producto["doc_producto"],
-                $array_datos_producto["descuento_producto"],
-                $array_datos_producto["id_proveedor"],
-                $array_datos_producto["precio_feria"],
-                $array_datos_producto["precio_oferta"],
+                $array_datos_producto["id_categoria"] ?? null,
+                $array_datos_producto["descripcion"] ?? null,
+                $array_datos_producto["id_unidad_medida"] ?? null,
+                $array_datos_producto["stock_producto"] ?? 0,
+                $array_datos_producto["precio_venta"] ?? 0,
+                $array_datos_producto["precio_compra"] ?? 0,
+                $array_datos_producto["doc_producto"] ?? null,
+                $array_datos_producto["descuento_producto"] ?? 0,
+                $array_datos_producto["id_proveedor"] ?? null,
+                $array_datos_producto["precio_feria"] ?? 0,
+                $array_datos_producto["precio_oferta"] ?? 0,
                 $array_datos_producto["codigo_producto"]
             ));
 

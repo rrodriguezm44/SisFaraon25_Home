@@ -45,9 +45,10 @@
 
           <div class="info-box-content">
             <span class="info-box-text">
-              Ofertas
+              Pedidos
             </span>
-            <span class="info-box-number" id="totalOfertas"></span>
+            <!-- <span class="info-box-number" id="totalOfertas"></span> -->
+            <span class="info-box-number" id="">50</span>
           </div>
           <!-- /.info-box-content -->
         </div>
