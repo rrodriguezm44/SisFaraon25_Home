@@ -15,6 +15,25 @@
   <link rel="stylesheet" href="vistas/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="vistas/assets/dist/css/adminlte.min.css">
+
+  <style>
+    .login-box input.form-control {
+      background-color: #6c757d !important;
+      /* Color plomo */
+      color: white !important;
+      border: 1px solid #6c757d;
+    }
+
+    .login-box input.form-control::placeholder {
+      color: #e0e0e0 !important;
+    }
+
+    .login-box .input-group-text {
+      background-color: #6c757d !important;
+      color: white !important;
+      border: 1px solid #6c757d;
+    }
+  </style>
 </head>
 
 <body class="hold-transition dark-mode login-page">

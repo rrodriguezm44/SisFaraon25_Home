@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h2 class="m-0 fw-bold">Inventario / Productos</h2>
+        <h2 class="m-0 fw-bold">Administracion / Productos</h2>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -345,12 +345,21 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               <div class="form-floating mb-2">
 
-                <input type="text" id="id_unidad_medida" class="form-control" name="id_unidad_medida"
-                  placeholder="Unidad de Medida">
-                <label for="id_unidad_medida"><i class="fas fa-eye-dropper fs-6"></i><span
-                    class="small">Unidad/Medida</span></label>
+                <!-- <input type="text" id="id_unidad_medida" class="form-control" name="id_unidad_medida"
+                  placeholder="Unidad de Medida"> -->
+                  <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="id_unidad_medida" name="id_unidad_medida" required>
+                    <option value="">Seleccione U. Medida</option>
+                    <option value="PZA">PZA</option>
+                    <option value="BLS">BLS</option>
+                    <option value="CJA">CJA</option>
+                    <option value="MT2">MT2</option>
+                    <option value="KIT">KIT</option>
+                    <option value="OTROS">OTROS</option>
+                  </select>
+                  <label for="id_unidad_medida"><i class="fas fa-eye-dropper fs-6"></i><span
+                      class="small">Unidad/Medida</span><span class="text-danger">*</span></label>
 
-                <!-- <div class="invalid-feedback">Seleccione la Unidad de Medida</div> -->
+                  <div class="invalid-feedback">Seleccione la Unidad de Medida</div>
 
               </div>
 
@@ -819,13 +828,13 @@ function fnc_CargarDataTableInventario() {
             "<i class='fas fa-pencil-alt fs-5'></i>" +
             "</span>")
 
-          if (parseInt(rowData['costo_unitario']) > 0) {
-            $(td).append("<span class='btnAumentarStock text-success px-1' style='cursor:pointer;'>" +
-              "<i class='fas fa-plus-circle fs-5'></i>" +
-              "</span>" +
-              "<span class='btnDisminuirStock text-warning px-1' style='cursor:pointer;'>" +
-              "<i class='fas fa-minus-circle fs-5'></i>" +
-              "</span>");
+          // Mostrar botón Aumentar solo si el producto está ACTIVO; quitar botón Disminuir
+          var btnAumentar = "<span class='btnAumentarStock text-success px-1' style='cursor:pointer;' title='Aumentar Stock'><i class='fas fa-plus-circle fs-5'></i></span>";
+
+          var productoActivo = (rowData['estado'] != 'INACTIVO');
+
+          if (productoActivo) {
+            $(td).append(btnAumentar);
           }
           if (rowData['estado'] == 'INACTIVO') {
 
