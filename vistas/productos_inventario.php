@@ -329,7 +329,7 @@ VENTA MODAL PARA REGISTRAR O ACTUALIZAR UN PRODUCTO
 
               <div class="form-floating mb-2">
 
-                <input type="number" min="0" id="stock_producto" class="form-control" name="stock_producto"
+                <input type="number" min="0" step="any" id="stock_producto" class="form-control" name="stock_producto"
                   placeholder="Cantidad Comprada" required>
                 <label for="stock_producto"><i class="fas fa-layer-group fs-6"></i><span class="small"> Nuevo
                     Stock</span><span class="text-danger">*</span></label>
@@ -568,9 +568,17 @@ $(document).ready(function() {
     $("#tbl_inventario").DataTable().search('').columns().search('').draw();
   })
 
-  // LIMPIAR INPUT DE INGRESO DE STOCK AL CERRAR LA VENTANA MODAL
+  // LIMPIAR INPUTS AL CERRAR LA VENTANA MODAL DE STOCK
   $("#btnCancelarRegistroStock, #btnCerrarModalStock").on('click', function() {
     $("#iptStockSumar").val("")
+    $("#iptPrecioCompra").val("")
+    $("#iptPrecioVenta").val("")
+    $("#iptPrecioFeria").val("")
+    $("#iptDocumento").val("")
+    $("#selProv").val("0")
+    $("#fechaRegistro").val("")
+    $("#iptObserva").val("")
+    $("#stock_NuevoStock").html("")
   })
 
   /*===================================================================*/
@@ -829,7 +837,7 @@ function fnc_CargarDataTableInventario() {
             "</span>")
 
           // Mostrar botón Aumentar solo si el producto está ACTIVO; quitar botón Disminuir
-          var btnAumentar = "<span class='btnAumentarStock text-success px-1' style='cursor:pointer;' title='Aumentar Stock'><i class='fas fa-plus-circle fs-5'></i></span>";
+          var btnAumentar = "<span class='btnAumentarStock text-warning px-1' style='cursor:pointer;' title='Aumentar Stock'><i class='fas fa-plus-circle fs-5'></i></span>";
 
           var productoActivo = (rowData['estado'] != 'INACTIVO');
 
@@ -1098,15 +1106,25 @@ function fnc_ModalAumentarStock(data) {
 
   $("#mdlGestionarStock").modal('show'); //MOSTRAR VENTANA MODAL
 
-  $("#titulo_modal_stock").html('Aumentar Stock'); // CAMBIAR EL TITULO DE LA VENTANA MODAL
+  $("#titulo_modal_stock").html('Aumentar Stock (Compra)'); // CAMBIAR EL TITULO DE LA VENTANA MODAL
   $("#titulo_modal_label").html('Agregar al Stock'); // CAMBIAR EL TEXTO DEL LABEL DEL INPUT PARA INGRESO DE STOCK
   $("#iptStockSumar").attr("placeholder", "Ingrese cantidad a agregar al Stock"); //CAMBIAR EL PLACEHOLDER 
 
-  $("#stock_codigoProducto").html(data['codigo_producto']) //CODIGO DEL PRODUCTO DEL DATATABLE
-  $("#stock_Producto").html(data['producto']) //NOMBRE DEL PRODUCTO DEL DATATABLE
-  $("#stock_Stock").html(data['stock']) //STOCK ACTUAL DEL PRODUCTO DEL DATATABLE
+  // Los datos vienen como array: [0=control, 1=opciones, 2=id, 3=codigo, 4=descripcion, ..., 7=stock, 8=precio_compra, ...]
+  var idProducto = data[2] || '';           // id del producto
+  var codigo = data[3] || '';               // codigo_producto
+  var producto = data[4] || '';             // descripcion/producto
+  var stock = data[7] || 0;                 // stock actual
+  var precioCompra = data[8] || 0;          // precio de compra
 
-  $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
+  $("#stock_idProducto").html(idProducto);
+  $("#stock_codigoProducto").html(codigo);
+  $("#stock_Producto").html(producto);
+  $("#stock_precioProducto").html(precioCompra);
+  $("#stock_Stock").html(stock);
+
+  $("#iptPrecioCompra").val(precioCompra);  // Rellenar precio de compra en el input
+  $("#stock_NuevoStock").html(parseFloat(stock));
 }
 
 function fnc_ModalDisminuirStock(data) {
@@ -1128,48 +1146,33 @@ function fnc_ModalDisminuirStock(data) {
 }
 
 function fnc_CalcularNuevoStock() {
+  
+  var stockActual = parseFloat($("#stock_Stock").html()) || 0;
+  var cantidadIngresada = parseFloat($("#iptStockSumar").val()) || 0;
+  
+  if (cantidadIngresada <= 0) {
+    mensajeToast('error', 'Ingrese un valor mayor a 0');
+    $("#iptStockSumar").val("");
+    $("#stock_NuevoStock").html(stockActual);
+    return;
+  }
+
   if (operacion_stock == 'aumentar_stock') {
-
-    if ($("#iptStockSumar").val() != "" && $("#iptStockSumar").val() > 0) {
-
-      var stockActual = parseFloat($("#stock_Stock").html());
-      var cantidadAgregar = parseFloat($("#iptStockSumar").val());
-
-      $("#stock_NuevoStock").html(stockActual + cantidadAgregar);
-
-    } else {
-
-      mensajeToast('error', 'Ingrese un valor mayor a 0');
-
-      $("#iptStockSumar").val("")
-      $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
-
+    // Sumar al stock actual
+    var nuevoStock = stockActual + cantidadIngresada;
+    $("#stock_NuevoStock").html(nuevoStock.toFixed(2));
+  } else if (operacion_stock == 'disminuir_stock') {
+    // Restar del stock actual
+    var nuevoStock = stockActual - cantidadIngresada;
+    
+    if (nuevoStock < 0) {
+      mensajeToast('error', 'La cantidad a disminuir no puede ser mayor al stock actual');
+      $("#iptStockSumar").val("");
+      $("#stock_NuevoStock").html(stockActual);
+      return;
     }
-
-  } else {
-
-    if ($("#iptStockSumar").val() != "" && $("#iptStockSumar").val() > 0) {
-
-      var stockActual = parseFloat($("#stock_Stock").html());
-      var cantidadAgregar = parseFloat($("#iptStockSumar").val());
-
-      $("#stock_NuevoStock").html(stockActual - cantidadAgregar);
-
-      if (parseInt($("#stock_NuevoStock").html()) < 0) {
-
-        mensajeToast('error', 'La cantidad a disminuir no puede ser mayor al stock actual (Nuevo stock < 0)');
-
-        $("#iptStockSumar").val("");
-        $("#iptStockSumar").focus();
-        $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
-      }
-    } else {
-
-      mensajeToast('error', 'Ingrese un valor mayor a 0');
-
-      $("#iptStockSumar").val("")
-      $("#stock_NuevoStock").html(parseFloat($("#stock_Stock").html()));
-    }
+    
+    $("#stock_NuevoStock").html(nuevoStock.toFixed(2));
   }
 }
 
@@ -1184,35 +1187,35 @@ function calcularUtilidad() {
 
 function fnc_ActualizarStock() {
 
-  if ($("#iptStockSumar").val() != "" && $("#iptStockSumar").val() > 0) {
+  if ($("#iptStockSumar").val() == "" || $("#iptStockSumar").val() <= 0) {
+    mensajeToast('error', 'Debe ingresar la cantidad a aumentar/disminuir');
+    return false;
+  }
 
-    var nuevoStock = parseFloat($("#stock_NuevoStock").html()),
+  var nuevoStock = parseFloat($("#stock_NuevoStock").html()),
       codigo_producto = $("#stock_codigoProducto").html();
 
-    var datos = new FormData();
+  console.log('Actualizando stock - Código:', codigo_producto, 'Nuevo Stock:', nuevoStock, 'Operación:', operacion_stock);
 
-    datos.append('accion', 'aumentar_disminuir_stock');
-    datos.append('nuevoStock', nuevoStock);
-    datos.append('codigo_producto', codigo_producto);
-    datos.append('tipo_movimiento', operacion_stock);
+  var datos = new FormData();
+  datos.append('accion', 'aumentar_disminuir_stock');
+  datos.append('nuevoStock', nuevoStock);
+  datos.append('codigo_producto', codigo_producto);
+  datos.append('tipo_movimiento', operacion_stock);
 
-    //Solicitud para verificar el Stock del Producto
-    response = SolicitudAjax("ajax/productos_inventario.ajax.php", "POST", datos);
+  //Solicitud para actualizar el Stock del Producto
+  response = SolicitudAjax("ajax/productos_inventario.ajax.php", "POST", datos);
 
-    if (response["tipo_msj"] == "success") {
-      $("#stock_NuevoStock").html("");
-      $("#iptStockSumar").val("");
+  console.log('Respuesta del servidor:', response);
 
-      $("#mdlGestionarStock").modal('hide');
-
-      $("#tbl_inventario").DataTable().ajax.reload();
-      mensajeToast(response["tipo_msj"], response["msj"])
-    }
-
-
+  if (response["tipo_msj"] == "success") {
+    $("#stock_NuevoStock").html("");
+    $("#iptStockSumar").val("");
+    $("#mdlGestionarStock").modal('hide');
+    $("#tbl_inventario").DataTable().ajax.reload();
+    mensajeToast(response["tipo_msj"], response["msj"]);
   } else {
-    mensajeToast('error', 'Debe ingresar la cantidad a aumentar');
-    return false;
+    mensajeToast(response["tipo_msj"], response["msj"]);
   }
 }
 
