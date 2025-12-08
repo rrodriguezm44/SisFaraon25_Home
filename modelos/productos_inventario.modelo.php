@@ -311,7 +311,7 @@ class ProductosModelo
         try {
 
             $dbh = Conexion::conectar();
-
+            $costo_total_producto = 0;
 
             $stmt = $dbh->prepare("INSERT INTO PRODUCTOS(codigo_producto, 
                                                         categoria_id,
@@ -338,16 +338,23 @@ class ProductosModelo
             ));
             $dbh->commit();
 
+            $concepto = 'INVENTARIO INICIAL';
+            $comprobante = '';
 
             //REGISTRAMOS KARDEX - INVENTARIO INICIAL
-            // $stmt = $dbh->prepare("call prc_registrar_kardex_existencias(?,?,?,?,?,?);");
+            $stmt = $dbh->prepare("call prc_registrar_kardex_existencias(?,?,?,?,?,?);");
 
-            // $dbh->beginTransaction();
-            // $stmt->execute(array(
-            //     $array_datos_producto["codigo_producto"]
-            // ));
+            $dbh->beginTransaction();
+            $stmt->execute(array(
+                $array_datos_producto["codigo_producto"],
+                $concepto,
+                $comprobante,
+                $array_datos_producto["stock_producto"] ?? 0,
+                $array_datos_producto["precio_compra"] ?? 0,
+                $costo_total_producto
+            ));
 
-           // $dbh->commit();
+           $dbh->commit();
 
             $respuesta["tipo_msj"] = "success";
             $respuesta["msj"] = "Se registró el producto exitosamente ok!!!";
@@ -604,31 +611,12 @@ class ProductosModelo
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT p.codigo_producto, 
-                                                    p.id_categoria, 
-                                                    p.descripcion, 
-                                                    p.id_tipo_afectacion_igv, 
-                                                    case when p.id_tipo_afectacion_igv = 10 
-                                                            then 'GRAVADO' 
-                                                        when p.id_tipo_afectacion_igv = 20 
-                                                            then 'EXONERADO' 
-                                                        when p.id_tipo_afectacion_igv = 30
-                                                            then 'INAFECTO' 
-                                                    end as tipo_afectacion_igv,
-                                                    p.id_unidad_medida, 
-                                                    cum.descripcion as unidad_medida,
-                                                    p.costo_unitario, 
-                                                    p.precio_unitario_con_igv, 
-                                                    p.precio_unitario_sin_igv, 
-                                                    p.precio_unitario_mayor_con_igv, 
-                                                    p.precio_unitario_mayor_sin_igv, 
-                                                    p.precio_unitario_oferta_con_igv, 
-                                                    p.precio_unitario_oferta_sin_igv, 
-                                                    p.stock,         
-                                                    p.costo_total,
-                                                    case when p.id_tipo_afectacion_igv = 10 then 1.18 else 1 end as factor_igv,
-                                                    case when p.id_tipo_afectacion_igv = 10 then 0.18 else 0 end as porcentaje_igv
-                                                FROM productos p inner join tipo_afectacion_igv tai on tai.codigo = p.id_tipo_afectacion_igv
-                                                                inner join codigo_unidad_medida cum on cum.id = p.id_unidad_medida
+                                                        p.nombre, 
+                                                        p.unidad_medida, 
+                                                        p.precio_compra, 
+                                                        p.stock,         
+                                                        p.costo_total
+                                                FROM productos p
                                                 WHERE codigo_producto = :codigoProducto");
 
         $stmt->bindParam(":codigoProducto", $codigoProducto, PDO::PARAM_STR);

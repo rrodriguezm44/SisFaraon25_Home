@@ -113,9 +113,9 @@ function validateLoginUsuarioBS4() {
 
 function mensajeToast(tipo_mensaje = 'error',mensaje){
 	
-	//toastr.options.progressBar = true;
-	//toastr.options.timeOut = 3000; // How long the toast will display without user interaction
-	//toastr.options.extendedTimeOut = 3000; 
+	toastr.options.progressBar = true;
+	toastr.options.timeOut = 3000; // How long the toast will display without user interaction
+	toastr.options.extendedTimeOut = 3000; 
 
 	if(tipo_mensaje == 'error'){
 		toastr.error(mensaje);

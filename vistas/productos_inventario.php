@@ -445,11 +445,10 @@ VENTA MODAL PARA AUMENTAR O DISMINUIR EL STOCK DEL PRODUCTO
           <div class="col-12">
             <div class="form-group mb-2">
               <label class="" for="iptStockSumar">
-                <i class="fas fa-plus-circle fs-6"></i> <span class="small" id="titulo_modal_label">Agregar al
-                  Stock</span>
+                <i class="fas fa-plus-circle fs-6"></i> <span class="small" id="titulo_modal_label"></span>
               </label>
               <input type="number" min="0" class="form-control form-control-sm" id="iptStockSumar"
-                placeholder="Ingrese cantidad a agregar al Stock">
+                placeholder="">
             </div>
           </div>
 
@@ -1206,7 +1205,7 @@ function fnc_ActualizarStock() {
   //Solicitud para actualizar el Stock del Producto
   response = SolicitudAjax("ajax/productos_inventario.ajax.php", "POST", datos);
 
-  console.log('Respuesta del servidor:', response);
+  console.log('Respuesta del servidor rarm:', response);
 
   if (response["tipo_msj"] == "success") {
     $("#stock_NuevoStock").html("");

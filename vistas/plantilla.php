@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Almacen JIIP | Ventas</title>
+  <title>Almacen JiPP | Ventas</title>
 
   <link rel="shortcut icon" href="vistas/assets/dist/img/AdminLTELogo.png" type="image/x-icon">
 
@@ -119,7 +119,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="vistas/assets/plugins/inputmask/jquery.inputmask.min.js"></script>
   <!-- SweetAlert2 -->
   <script src="vistas/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
-
+  <!-- Toastr JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
   <!-- Jquery UI -->
 
